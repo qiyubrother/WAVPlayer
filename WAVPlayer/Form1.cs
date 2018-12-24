@@ -16,5 +16,17 @@ namespace WAVPlayer
         {
             InitializeComponent();
         }
+
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+
+            Player.Instance.Add("demo", "demoMp3.wav");
+            new Task(() =>
+            {
+                Console.WriteLine("Playing in background thread.");
+                Player.Instance.Play("demo");
+            }).Start();
+        }
     }
 }
